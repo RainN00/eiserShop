@@ -1,0 +1,39 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+.pagination__option {
+
+    a {
+      display: inline-block;
+      height: 40px;
+      width: 40px;
+      border: 1px solid #f2f2f2;
+      border-radius: 50%;
+      font-size: 14px;
+      color: $heading-color;
+      font-weight: 600;
+      line-height: 40px;
+      text-align: center;
+      @include transition(all, .3s);
+      margin-right: 6px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      i {
+        font-weight: 600;
+      }
+
+      &:hover {
+        background: #0d0d0d;
+        border-color: #0d0d0d;
+        color: $white-color;
+      }
+    }
+  }
