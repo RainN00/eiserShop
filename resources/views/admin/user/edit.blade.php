@@ -1,12 +1,12 @@
 @extends('admin.layouts.index')
 @section('title')
-demo
+Categories
 @endsection
 @section('wrapper')
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>Form Validation</h3>
+            <h3>Create category</h3>
         </div>
 
         <div class="title_right">
@@ -26,7 +26,6 @@ demo
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Form validation <small>sub title</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -47,12 +46,10 @@ demo
                 </div>
                 <div class="x_content">
 
-                    <form class="form-horizontal form-label-left" novalidate>
-
-                        <p>For alternative validation library <code>parsleyJS</code> check out in the <a
-                                href="form.html">form page</a>
-                        </p>
-                        <span class="section">Personal Info</span>
+                    <form id="formUpdateCategory" class="form-horizontal form-label-left" action="{{ route('categories.update', ['category'=>$category->id]) }}" method="POST" novalidate enctype="multipart/form-data">
+                        @method('PUT')
+                        @csrf
+                        <span class="section">Category Info</span>
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span
@@ -60,93 +57,40 @@ demo
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6"
-                                    data-validate-words="2" name="name" placeholder="both name(s) e.g Jon Doe"
-                                    required="required" type="text">
+                                    data-validate-words="2" name="name"  value="{{ $category->name }}" type="text">
+                                    <span class="text-danger error-text name_error"></span>
                             </div>
                         </div>
+
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span
-                                    class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="thumbnail">Thumbnail
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="email" id="email" name="email" required="required"
-                                    class="form-control col-md-7 col-xs-12">
+                                <input type="file" id="thumbnail" name="thumbnail" class="form-control col-md-7 col-xs-12">
+                                <span class="text-danger error-text thumbnail_error"></span>
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Confirm Email <span
-                                    class="required">*</span>
+                            <div class="col-md-3 col-sm-3 col-xs-12"></div>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                <img style="height:250px !important" src="{{ asset($category->thumbnail) }}" alt="" class="form-control img-fluid col-md-7 col-xs-12">
+                            </div>
+                        </div>
+
+                        <div class="item form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Textarea
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="email" id="email2" name="confirm_email" data-validate-linked="email"
-                                    required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Number <span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="number" name="number" required="required"
-                                    data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="website">Website URL <span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="url" id="website" name="website" required="required"
-                                    placeholder="www.website.com" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Occupation <span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="occupation" type="text" name="occupation" data-validate-length-range="5,20"
-                                    class="optional form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label for="password" class="control-label col-md-3">Password</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password" type="password" name="password" data-validate-length="6,8"
-                                    class="form-control col-md-7 col-xs-12" required="required">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Repeat
-                                Password</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password2" type="password" name="password2" data-validate-linked="password"
-                                    class="form-control col-md-7 col-xs-12" required="required">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="tel" id="telephone" name="phone" required="required"
-                                    data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Textarea <span
-                                    class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea id="textarea" required="required" name="textarea"
-                                    class="form-control col-md-7 col-xs-12"></textarea>
+                                <textarea id="description" required="required" name="description"
+                                    class="form-control col-md-7 col-xs-12">{{ $category->description }}</textarea>
+                                    <span class="text-danger error-text description_error"></span>
                             </div>
                         </div>
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">
                                 <button type="submit" class="btn btn-primary">Cancel</button>
-                                <button id="send" type="submit" class="btn btn-success">Submit</button>
+                                <button id="send" type="submit" class="btn btn-success btn-update-category">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -157,5 +101,55 @@ demo
 </div>
 @endsection
 @section('script')
+<script>
+    $(document).ready(function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
+        $("#formUpdateCategory").on('submit' , function (e) {
+            e.preventDefault();
+            toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-bottom-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            var form = this;
+            $.ajax({
+                url: $(form).attr('action'),
+                type: $(form).attr('method'),
+                data: new FormData(form),
+                processData: false,
+                dataType: 'json',
+                contentType: false,
+                beforeSend: function(){
+                    $(form).find('span.error-text').text('')
+                },
+                success: function (data) {
+                    if (data.code == 0) {
+                        $.each(data.error, function(prefix,val){
+                            $(form).find('span.'+prefix+'_error').text(val[0])
+                        });
+                    } else {
+                        toastr.success(data.msg)
+                    }
+                }
+            });
+        });
+    });
+</script>
 @endsection

@@ -32,6 +32,15 @@
         <link href="{{ asset('admin/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('admin/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('admin/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet" />
+
+        <!-- bootstrap-wysiwyg -->
+        <link href="{{ asset('admin/vendors/google-code-prettify/bin/prettify.min.css') }}" rel="stylesheet">
+        <!-- Select2 -->
+        <link href="{{ asset('admin/vendors/select2/dist/css/select2.min.css') }}" rel="stylesheet">
+        <!-- Switchery -->
+        <link href="{{ asset('admin/vendors/switchery/dist/switchery.min.css') }}" rel="stylesheet">
+        <!-- starrr -->
+        <link href="{{ asset('admin/vendors/starrr/dist/starrr.css') }}" rel="stylesheet">
         <!-- Custom Theme Style -->
         <link href="{{ asset('admin/build/css/custom.min.css') }}" rel="stylesheet" />\
         <link rel="stylesheet" href="{{ asset('customer/css/toastr.min.css') }}" />
@@ -103,9 +112,29 @@
         <script src="{{ asset('admin/vendors/jszip/dist/jszip.min.js') }}"></script>
         <script src="{{ asset('admin/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
         <script src="{{ asset('admin/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+
+        <!-- bootstrap-wysiwyg -->
+        <script src="{{ asset('admin/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js') }}"></script>
+        <script src="{{ asset('admin/vendors/jquery.hotkeys/jquery.hotkeys.js') }}"></script>
+        <script src="{{ asset('admin/vendors/google-code-prettify/src/prettify.js') }}"></script>
+        <!-- jQuery Tags Input -->
+        <script src="{{ asset('admin/vendors/jquery.tagsinput/src/jquery.tagsinput.js') }}"></script>
+        <!-- Switchery -->
+        <script src="{{ asset('admin/vendors/switchery/dist/switchery.min.js') }}"></script>
+        <!-- Select2 -->
+        <script src="{{ asset('admin/vendors/select2/dist/js/select2.full.min.js') }}"></script>
+        <!-- Parsley -->
+        <script src="{{ asset('admin/vendors/parsleyjs/dist/parsley.min.js') }}"></script>
+        <!-- Autosize -->
+        <script src="{{ asset('admin/vendors/autosize/dist/autosize.min.js') }}"></script>
+        <!-- jQuery autocomplete -->
+        <script src="{{ asset('admin/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js') }}"></script>
+        <!-- starrr -->
+        <script src="{{ asset('admin/vendors/starrr/dist/starrr.js') }}"></script>
         <!-- Custom Theme Scripts -->
-        <script src="{{ asset('admin/build/js/custom.min.js') }}"></script>
+        <script src="{{ asset('admin/build/js/custom.js') }}"></script>
         <script src="{{ asset('customer/js/toastr.min.js') }}"></script>
+        <script type="text/javascript" language="javascript" src="{{ asset('admin/ckeditor/ckeditor.js') }}" ></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         @yield('script')
     </body>

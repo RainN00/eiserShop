@@ -24,6 +24,14 @@
                                 <span>Category</span> : {{ $productDetail->category->name }}</a>
                         </li>
                         <li>
+                            <a href="{{ route('client.categories.detail', ['id'=>$productDetail->category->id]) }}">
+                                <span>Brand</span> : {{ $productDetail->brand->name }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('client.categories.detail', ['id'=>$productDetail->category->id]) }}">
+                                <span>Nation</span> : {{ $productDetail->nation->name }}</a>
+                        </li>
+                        <li>
                             <a href="#"> <span>Availibility</span> : In Stock</a>
                         </li>
                     </ul>

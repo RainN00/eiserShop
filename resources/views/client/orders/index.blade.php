@@ -154,7 +154,9 @@ Checkout
             },
             dataType: 'json',
             success: function(data) {
-                toastr.success("Login account success");
+                if(data.urlString != null){
+                    window.location.href = data.urlString
+                }
             }
         });
     });

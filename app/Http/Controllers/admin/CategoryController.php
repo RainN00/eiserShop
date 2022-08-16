@@ -130,6 +130,9 @@ class CategoryController extends Controller
             ]);
         } else {
             if ($request->hasFile('thumbnail')) {
+                if (filter_var($category->thumbnail, FILTER_VALIDATE_URL) === false) {
+                    unlink($category->thumbnail);
+                }
                 $path = "images/categories";
                 $file = $request->file('thumbnail');
                 $file_name = time().'_'.$file->getClientOriginalName();
@@ -168,7 +171,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
-
+        unlink($category->thumbnail);
         $category->delete($id);
 
         return response()->json([

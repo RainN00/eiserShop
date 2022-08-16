@@ -22,13 +22,15 @@ class CreateProductsTable extends Migration
                 $table->text('content');
                 $table->string('short_description');
                 $table->integer('quantity');
-                $table->integer('views');
+                $table->integer('views')->nullable();
                 $table->float('price');
-                $table->float('number_of_vote_submissions');
-                $table->integer('total_vote');
-                $table->integer('sold');
+                $table->integer('sold')->nullable();
                 $table->unsignedBigInteger('category_id');
                 $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+                $table->unsignedBigInteger('brand_id');
+                $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+                $table->unsignedBigInteger('nation_id');
+                $table->foreign('nation_id')->references('id')->on('nations')->onDelete('cascade');
                 $table->tinyInteger('status');
                 $table->timestamps();
             }

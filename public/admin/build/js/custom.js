@@ -1579,12 +1579,12 @@ if (typeof NProgress != 'undefined') {
 			  console.log(start.toISOString(), end.toISOString(), label);
 			  $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 			};
-
+            var d = new Date();
 			var optionSet1 = {
 			  startDate: moment().subtract(29, 'days'),
 			  endDate: moment(),
-			  minDate: '01/01/2012',
-			  maxDate: '12/31/2015',
+			  minDate: '01/01/2000',
+			  maxDate: d.getDate(),
 			  dateLimit: {
 				days: 60
 			  },
@@ -1613,7 +1613,7 @@ if (typeof NProgress != 'undefined') {
 				fromLabel: 'From',
 				toLabel: 'To',
 				customRangeLabel: 'Custom',
-				daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+				daysOfWeek: ['Sun', 'Mon', 'Tus', 'Wed', 'Thu', 'Fri', 'San'],
 				monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 				firstDay: 1
 			  }
@@ -1654,12 +1654,12 @@ if (typeof NProgress != 'undefined') {
 				  console.log(start.toISOString(), end.toISOString(), label);
 				  $('#reportrange_right span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
 				};
-
+                var d = new Date();
 				var optionSet1 = {
 				  startDate: moment().subtract(29, 'days'),
 				  endDate: moment(),
-				  minDate: '01/01/2012',
-				  maxDate: '12/31/2020',
+				  minDate: '01/01/2000',
+				  maxDate: d.getDate(),
 				  dateLimit: {
 					days: 60
 				  },
@@ -1688,7 +1688,7 @@ if (typeof NProgress != 'undefined') {
 					fromLabel: 'From',
 					toLabel: 'To',
 					customRangeLabel: 'Custom',
-					daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+					daysOfWeek: ['Sun', 'Mon', 'Tus', 'Wed', 'Thu', 'Fri', 'San'],
 					monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 					firstDay: 1
 				  }
@@ -2207,7 +2207,33 @@ if (typeof NProgress != 'undefined') {
 			  var mybarChart = new Chart(ctx, {
 				type: 'bar',
 				data: {
-				  labels: ["January", "February", "March", "April", "May", "June", "July"],
+				  labels: _labelsUser,
+				  datasets: [{
+					label: '# of Votes',
+					backgroundColor: "#26B99A",
+					data: _dataUser
+				  }]
+				},
+
+				options: {
+				  scales: {
+					yAxes: [{
+					  ticks: {
+						beginAtZero: true
+					  }
+					}]
+				  }
+				}
+			  });
+
+			}
+			if ($('#barChart').length ){
+
+			  var ctx = document.getElementById("barChart");
+			  var barChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+				  labels: ["January","February","March","April","May","June","July"],
 				  datasets: [{
 					label: '# of Votes',
 					backgroundColor: "#26B99A",

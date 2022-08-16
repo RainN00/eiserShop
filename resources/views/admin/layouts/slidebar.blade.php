@@ -38,6 +38,22 @@
                     </li>
 
                     <li>
+                        <a><i class="fa fa-google-wallet"></i> Brand <span class="fa fa-plus"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('brands.index') }}"> List item</a></li>
+                            <li><a href="{{ route('brands.create') }}">Create item</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a><i class="fa fa-flag"></i> Nation <span class="fa fa-plus"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ route('nations.index') }}"> List item</a></li>
+                            <li><a href="{{ route('nations.create') }}">Create item</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
                         <a><i class="fa fa-gears"></i> Product <span class="fa fa-plus"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ route('products.index') }}"> List item</a></li>

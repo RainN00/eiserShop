@@ -65,7 +65,9 @@ class OrderController extends Controller
             Session::put('cart', null);
             Session::put('cart-item-number', 0);
 
-            return redirect()->route('client.orders.success');
+            return response()->json([
+                'urlString' => "/order-success"
+            ]);
         }
     }
 

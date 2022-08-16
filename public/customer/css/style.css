@@ -2966,6 +2966,7 @@ h6 {
 .single-product .product-img {
     position: relative;
     overflow: hidden;
+    height: 250px;
 }
 .single-product .product-img .p_icon {
     width: 90%;

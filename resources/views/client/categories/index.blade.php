@@ -11,16 +11,19 @@ Shop category
             <div class="col-lg-9">
                 <div class="product_top_bar">
                     <div class="left_dorp">
-                        <select class="sorting">
-                            <option value="1">Default sorting</option>
-                            <option value="2">Sorting A-Z</option>
-                            <option value="4">Sorting Z-A</option>
+                        <select name="sorting" class="sorting" wire:model="sorting">
+                            <option value="default">Default sorting</option>
+                            <option value="date">Sorting by newness</option>
+                            <option value="name">Sorting by name: A-Z</option>
+                            <option value="name-desc">Sorting by name: Z-A</option>
+                            <option value="price">Sorting by price: low to high</option>
+                            <option value="price-desc">Sorting by price: high to low</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="latest_product_inner">
-                    <div class="row category">
+                    <div class="row sorting_product">
                         @foreach ($products as $product)
                             <div class="col-lg-4 col-md-6">
                                 <div class="single-product">
@@ -87,21 +90,30 @@ Shop category
                         </div>
                         <div class="widgets_inner">
                             <ul class="list">
-                                <li>
-                                    <a href="#">Apple</a>
-                                </li>
-                                <li>
-                                    <a href="#">Asus</a>
-                                </li>
-                                <li>
-                                    <a href="#">Gionee</a>
-                                </li>
-                                <li>
-                                    <a href="#">Micromax</a>
-                                </li>
-                                <li>
-                                    <a href="#">Samsung</a>
-                                </li>
+                                @foreach ($brands as $brand)
+                                    @if (count($brand->products) > 0)
+                                        <li class="{{ Request::getRequestUri() == "/brands/".$brand->id ? 'active' : '' }}">
+                                            <a href="{{ route('client.categories.brand', ['id'=>$brand->id]) }}">{{ $brand->name }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <aside class="left_widgets p_filter_widgets">
+                        <div class="l_w_title">
+                            <h3>Product Nation</h3>
+                        </div>
+                        <div class="widgets_inner">
+                            <ul class="list">
+                                @foreach ($nations as $nation)
+                                    @if (count($nation->products) > 0)
+                                        <li class="{{ Request::getRequestUri() == "/nations/".$nation->id ? 'active' : '' }}">
+                                            <a href="{{ route('client.categories.nation', ['id'=>$nation->id]) }}">{{ $nation->name }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
                     </aside>
@@ -168,34 +180,50 @@ Shop category
         });
 
         $(".btn-add-to-cart").on('click',function (e) {
+            e.preventDefault();
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            var ele = $(this);
+            $.ajax({
+                url: '{{ route('client.ajax.addToCart') }}',
+                method: "get",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    productsId: ele.attr("data-product")
+                },
+                success: function (response) {
+                    toastr.success("Add product to cart success");
+                }
+            });
+        });
+        $(".remove-item-cart").on('click',function (e) {
         e.preventDefault();
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-bottom-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
+
         var ele = $(this);
         $.ajax({
-            url: '{{ route('client.ajax.addToCart') }}',
+            url: '{{ route('client.carts.remove') }}',
             method: "get",
             data: {
                 _token: '{{ csrf_token() }}',
-                productsId: ele.attr("data-product")
+                itemId: ele.attr("data-product")
             },
-            success: function (response) {
-                toastr.success("Add product to cart success");
+            success: function (data) {
+                $('.sorting_product').html(data.html);
             }
         });
     });

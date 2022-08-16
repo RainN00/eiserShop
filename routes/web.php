@@ -19,6 +19,8 @@ use App\Http\Controllers\admin\OrderDetailController as AdminOrderDetailControll
 use App\Http\Controllers\admin\CommentController as AdminCommentController;
 use App\Http\Controllers\admin\RateController as AdminRateController;
 use App\Http\Controllers\admin\PaymentController as AdminPaymentController;
+use App\Http\Controllers\admin\BrandController as AdminBrandController;
+use App\Http\Controllers\admin\NationController as AdminNationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +44,8 @@ Route::post('/rating', [ClientProductController::class, 'postRating'])->name('cl
 Route::get('/categories', [ClientCategoryController::class, 'index'])->name('client.categories.index');
 Route::get('/contact', [ClientCategoryController::class, 'index'])->name('client.contact.index');
 Route::get('/categories/{id}', [ClientCategoryController::class, 'detail'])->name('client.categories.detail');
+Route::get('/brands/{id}', [ClientCategoryController::class, 'brand'])->name('client.categories.brand');
+Route::get('/nations/{id}', [ClientCategoryController::class, 'nation'])->name('client.categories.nation');
 Route::get('/add-to-cart', [ClientAjaxController::class, 'addToCart'])->name('client.ajax.addToCart');
 Route::get('/carts', [ClientCartController::class, 'index'])->name('client.carts.index');
 Route::get('/remove-item-cart', [ClientCartController::class, 'removeItemCart'])->name('client.carts.remove');
@@ -60,7 +64,11 @@ Route::prefix('eiser')->group(function () {
         });
         Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
         Route::resource('categories', AdminCategoryController::class);
+        Route::resource('brands', AdminBrandController::class);
+        Route::resource('nations', AdminNationController::class);
         Route::resource('products', AdminProductController::class);
+        Route::post('active-product/{product}', [AdminProductController::class,'active'])->name('admin.products.active');
+        Route::post('disable-product/{product}', [AdminProductController::class,'disable'])->name('admin.products.disable');
         Route::resource('payments', AdminPaymentController::class);
         Route::resource('orders', AdminOrderController::class);
         Route::resource('users', AdminUserController::class);
