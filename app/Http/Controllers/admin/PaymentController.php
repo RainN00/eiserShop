@@ -4,6 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Payment;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class PaymentController extends Controller
 {
@@ -14,7 +17,9 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $payments = Payment::all();
+
+        return view('admin.payment.list',compact('payments'));
     }
 
     /**
@@ -24,7 +29,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.payment.create');
     }
 
     /**
@@ -35,7 +40,33 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => ['required','string','unique:payments'],
+            'description' => ['required']
+        ],[
+            'name.required' => "Payment name is required",
+            'name.string' => "Payment name is string",
+            'name.unique' => "This Payment name is already taken",
+            'description.required' => "Payment description is required"
+        ]);
+
+        if (!$validator->passes()) {
+            return response()->json([
+                'code' => 0,
+                'error' => $validator->errors()->toArray()
+            ]);
+        } else {
+            Payment::insert([
+                'name' => $request->name,
+                'description' => $request->description,
+                'status' => 1,
+                'created_at' => Carbon::now()
+            ]);
+            return response()->json([
+                'code' => 1,
+                'msg' => "Create payment successfully"
+            ]);
+        }
     }
 
     /**
@@ -57,7 +88,9 @@ class PaymentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $payment = Payment::find($id);
+
+        return view('admin.payment.edit',compact('payment'));
     }
 
     /**
@@ -69,7 +102,34 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $payment = Payment::find($id);
+        $validator = Validator::make($request->all(),[
+            'name' => ['required','string'],
+            'description' => ['required']
+        ],[
+            'name.required' => "Payment name is required",
+            'name.string' => "Payment name is string",
+            'name.unique' => "This Payment name is already taken",
+            'description.required' => "Payment description is required"
+        ]);
+
+        if (!$validator->passes()) {
+            return response()->json([
+                'code' => 0,
+                'error' => $validator->errors()->toArray()
+            ]);
+        } else {
+            $payment->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'status' => $request->status,
+                'updated_at' => Carbon::now()
+            ]);
+            return response()->json([
+                'code' => 1,
+                'msg' => "Update payment successfully"
+            ]);
+        }
     }
 
     /**
@@ -80,6 +140,11 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $payment = Payment::find($id);
+        $payment->delete($id);
+
+        return response()->json([
+            'msg' => 'Record Payment successfully!'
+        ]);
     }
 }

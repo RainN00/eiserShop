@@ -72,7 +72,7 @@
                         <a><i class="fa fa-credit-card"></i> Payment <span class="fa fa-plus"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{ route('payments.index') }}"> List item</a></li>
-                            <li><a href="{{ route('payments.index') }}"> Create item</a></li>
+                            <li><a href="{{ route('payments.create') }}"> Create item</a></li>
                         </ul>
                     </li>
 

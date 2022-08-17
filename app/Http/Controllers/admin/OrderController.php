@@ -4,6 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -14,7 +17,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+
+        return view('admin.order.list',compact('orders'));
     }
 
     /**
@@ -24,7 +29,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -46,7 +51,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+
+        return view('admin.order.show',compact('order'));
     }
 
     /**
@@ -57,7 +64,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        return view('admin.order.edit',compact('order'));
     }
 
     /**
@@ -69,7 +77,17 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::find($id);
+
+        $order->notes = $request->notes;
+        $order->status = $request->status;
+        $order->updated_at = Carbon::now();
+        $order->save();
+
+        return response()->json([
+            'code' => 1,
+            'msg' => "Update order successfully"
+        ]);
     }
 
     /**
@@ -80,6 +98,16 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        $orderDetails = OrderDetail::where('order_id',$id)->get();
+        foreach ($orderDetails as $orderDetail) {
+            $orderDetailDel = OrderDetail::find($orderDetail->id);
+            $orderDetailDel->delete($orderDetail->id);
+        }
+        $order->delete($id);
+
+        return response()->json([
+            'msg' => 'Record deleted successfully!'
+        ]);
     }
 }

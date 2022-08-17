@@ -72,6 +72,11 @@ Carts
                                     Has received the goods
                                 </span>
                                 @endif
+                                @if($item->status == 4)
+                                <span class="btn btn-success" @disabled(true)>
+                                    Item has been returned
+                                </span>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

@@ -104,7 +104,7 @@
                         <div class="item form-group">
                             <label class="control-label col-md-2 col-sm-2 col-xs-12" for="content">Content </label>
                             <div class="col-md-10 col-sm-10 col-xs-12">
-                                <textarea name="content" id="content" class="form-control ckeditor"></textarea>
+                                <textarea name="content" id="content" required="required" class="form-control"></textarea>
                                 <span class="text-danger text-error content_error"></span>
                             </div>
                         </div>
@@ -138,6 +138,8 @@
 @endsection @section('script')
 <script>
     $(document).ready(function (e) {
+        CKEDITOR.replace('content');
+        CKEDITOR.replace('short_description');
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -172,7 +174,6 @@
             formData.append('category', category);
             formData.append('brand', brand);
             formData.append('nation', nation);
-            // formData['content'].append(txt_content);
             $.ajax({
                 url: $(form).attr("action"),
                 method: $(form).attr("method"),

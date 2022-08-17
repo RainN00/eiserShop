@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Nation;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class NationController extends Controller
 {
@@ -60,7 +61,8 @@ class NationController extends Controller
                 Nation::insert([
                     'name' => $request->name,
                     'thumbnail' => $path.'/'.$file_name,
-                    'description' => $request->description
+                    'description' => $request->description,
+                    'created_at' => Carbon::now()
                 ]);
                 return response()->json([
                     'code' => 1,
@@ -71,7 +73,8 @@ class NationController extends Controller
                 Nation::insert([
                     'name' => $request->name,
                     'thumbnail' => $file_name,
-                    'description' => $request->description
+                    'description' => $request->description,
+                    'created_at' => Carbon::now()
                 ]);
                 return response()->json([
                     'code' => 1,
@@ -141,6 +144,7 @@ class NationController extends Controller
                 $nation->name = $request->name;
                 $nation->thumbnail = $path.'/'.$file_name;
                 $nation->description = $request->description;
+                $nation->updated_at = Carbon::now();
                 $nation->save();
 
                 return response()->json([
@@ -152,6 +156,7 @@ class NationController extends Controller
                 $nation->name = $request->name;
                 $nation->thumbnail = $file_name;
                 $nation->description = $request->description;
+                $nation->updated_at = Carbon::now();
                 $nation->save();
                 return response()->json([
                     'code' => 1,

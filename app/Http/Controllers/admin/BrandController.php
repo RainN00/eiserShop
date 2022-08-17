@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class BrandController extends Controller
 {
@@ -60,7 +61,8 @@ class BrandController extends Controller
                 Brand::insert([
                     'name' => $request->name,
                     'thumbnail' => $path.'/'.$file_name,
-                    'description' => $request->description
+                    'description' => $request->description,
+                    'created_at' => Carbon::now()
                 ]);
                 return response()->json([
                     'code' => 1,
@@ -71,7 +73,8 @@ class BrandController extends Controller
                 Brand::insert([
                     'name' => $request->name,
                     'thumbnail' => $file_name,
-                    'description' => $request->description
+                    'description' => $request->description,
+                    'created_at' => Carbon::now()
                 ]);
                 return response()->json([
                     'code' => 1,
@@ -141,6 +144,7 @@ class BrandController extends Controller
                 $brand->name = $request->name;
                 $brand->thumbnail = $path.'/'.$file_name;
                 $brand->description = $request->description;
+                $brand->updated_at = Carbon::now();
                 $brand->save();
 
                 return response()->json([
@@ -152,6 +156,7 @@ class BrandController extends Controller
                 $brand->name = $request->name;
                 $brand->thumbnail = $file_name;
                 $brand->description = $request->description;
+                $brand->updated_at = Carbon::now();
                 $brand->save();
                 return response()->json([
                     'code' => 1,

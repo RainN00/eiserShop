@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class CategoryController extends Controller
 {
@@ -60,7 +61,8 @@ class CategoryController extends Controller
                 Category::insert([
                     'name' => $request->name,
                     'thumbnail' => $path.'/'.$file_name,
-                    'description' => $request->description
+                    'description' => $request->description,
+                    'created_at' => Carbon::now()
                 ]);
                 return response()->json([
                     'code' => 1,
@@ -71,7 +73,8 @@ class CategoryController extends Controller
                 Category::insert([
                     'name' => $request->name,
                     'thumbnail' => $file_name,
-                    'description' => $request->description
+                    'description' => $request->description,
+                    'created_at' => Carbon::now()
                 ]);
                 return response()->json([
                     'code' => 1,
@@ -142,6 +145,7 @@ class CategoryController extends Controller
                 $category->name = $request->name;
                 $category->thumbnail = $path.'/'.$file_name;
                 $category->description = $request->description;
+                $category->updated_at = Carbon::now();
                 $category->save();
 
                 return response()->json([
@@ -153,6 +157,7 @@ class CategoryController extends Controller
                 $category->name = $request->name;
                 $category->thumbnail = $file_name;
                 $category->description = $request->description;
+                $category->updated_at = Carbon::now();
                 $category->save();
                 return response()->json([
                     'code' => 1,

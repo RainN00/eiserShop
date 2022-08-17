@@ -14,4 +14,9 @@ class Payment extends Model
         'description',
         'status'
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

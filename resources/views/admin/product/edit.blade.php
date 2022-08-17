@@ -146,7 +146,7 @@
                                 @endif value="0" />
                                 </p>
                             </div>
-                          </div>
+                        </div>
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-3">

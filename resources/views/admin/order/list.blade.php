@@ -1,12 +1,12 @@
 @extends('admin.layouts.index')
 @section('title')
-Categories
+Order
 @endsection
 @section('wrapper')
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>Categories list</h3>
+            <h3>Order list</h3>
         </div>
 
         <div class="title_right">
@@ -47,19 +47,46 @@ Categories
                     <table id="datatable-buttons" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Thumbnail</th>
+                                <th></th>
+                                <th>Name customer</th>
+                                <th>Name payment</th>
+                                <th>Notes</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $item)
+                            @foreach ($orders as $item)
                                 <tr>
-                                    <td>{{ $item->name }}</td>
-                                    <td><img style="width: 100px;height: 100px" src="{{ asset($item->thumbnail) }}" alt=""></td>
+                                    <td><a class="btn btn-default" href="{{ route('orders.show', ['order'=>$item->id]) }}"> Show detail </a></td>
+                                    <td>{{ $item->user->firstname }} {{ $item->user->lastname }}</td>
+                                    <td>{{ $item->payment->name }}</td>
+                                    <td>{{ $item->notes }}</td>
                                     <td>
-                                        <a class="btn btn-default" href="{{ route('categories.edit', ['category'=>$item->id]) }}"><i class="fa fa-edit"></i> Edit </a>
-                                        <a class="btn btn-danger delete-category" data-url="{{ route('categories.destroy', $item->id) }}" href="javascript:void(0)" ><i class="fa fa-close"></i> Delete </a>
+                                        @if ($item->status == 1)
+                                        <span class="btn btn-info" @disabled(true)>
+                                            Waiting for the package
+                                        </span>
+                                        @endif
+                                        @if($item->status == 2)
+                                        <span class="btn btn-warning radius">
+                                            Being transported
+                                        </span>
+                                        @endif
+                                        @if($item->status == 3)
+                                        <span class="btn btn-success" @disabled(true)>
+                                            Has received the goods
+                                        </span>
+                                        @endif
+                                        @if($item->status == 4)
+                                        <span class="btn btn-danger" @disabled(true)>
+                                            Item has been returned
+                                        </span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-default" href="{{ route('orders.edit', ['order'=>$item->id]) }}"><i class="fa fa-edit"></i> Edit </a>
+                                        <a class="btn btn-danger delete-order" data-url="{{ route('orders.destroy', $item->id) }}" href="javascript:void(0)" ><i class="fa fa-close"></i> Delete </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -79,7 +106,7 @@ Categories
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $(document).on('click', '.delete-category', function() {
+        $(document).on('click', '.delete-order', function() {
 
             var userURL = $(this).data('url');
             var trObj = $(this);

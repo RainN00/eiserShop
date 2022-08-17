@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Nation;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -89,7 +90,8 @@ class ProductController extends Controller
                     'content' => $request->content,
                     'quantity' => $request->quantity,
                     'price' => $request->price,
-                    'status' => 1
+                    'status' => 1,
+                    'created_at' => Carbon::now()
                 ]);
                 return response()->json([
                     'code' => 1,
@@ -107,7 +109,8 @@ class ProductController extends Controller
                     'content' => $request->content,
                     'quantity' => $request->quantity,
                     'price' => $request->price,
-                    'status' => 1
+                    'status' => 1,
+                    'created_at' => Carbon::now()
                 ]);
                 return response()->json([
                     'code' => 1,
@@ -202,6 +205,7 @@ class ProductController extends Controller
                 $product->quantity = $request->quantity;
                 $product->price = $request->price;
                 $product->status = $request->status;
+                $product->updated_at = Carbon::now();
                 $product->save();
 
                 return response()->json([
@@ -220,6 +224,7 @@ class ProductController extends Controller
                 $product->quantity = $request->quantity;
                 $product->price = $request->price;
                 $product->status = $request->status;
+                $product->updated_at = Carbon::now();
                 $product->save();
                 return response()->json([
                     'code' => 1,
